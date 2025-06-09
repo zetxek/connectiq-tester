@@ -38,12 +38,13 @@ LABEL org.opencontainers.image.source=https://github.com/matco/connectiq-tester
 # libwebkit2gtk-4.0-37, libusb-1.0-0, libsm6 and xvfb are required by the simulator
 # openssl is required to create a fake certificate
 RUN apt-get update && apt-get -y install \
-	openjdk-17-jre-headless \
-	libwebkit2gtk-4.0-37 \
-	libusb-1.0-0 \
-	libsm6 \
-	xvfb \
-	&& apt-get clean
+    openjdk-17-jre-headless \
+    libwebkit2gtk-4.0-37 \
+    libusb-1.0-0 \
+    libsm6 \
+    xvfb \
+    git \
+    && apt-get clean
 
 # prepare ConnectIQ home folder
 ENV CONNECT_IQ_HOME=/connectiq
