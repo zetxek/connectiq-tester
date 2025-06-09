@@ -2,11 +2,13 @@ FROM ubuntu:jammy AS downloader
 
 # install required dependencies
 # curl, jq, wget, unzip are required to download the SDK
+# Git is added to allow usage in CI/CD
 RUN apt-get update && apt-get -y install \
 	curl \
 	jq \
 	wget \
 	unzip \
+	git \
 	&& apt-get clean
 
 # prepare ConnectIQ home folder
