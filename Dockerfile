@@ -14,21 +14,23 @@ ENV CONNECT_IQ_HOME=/connectiq
 RUN mkdir -p ${CONNECT_IQ_HOME}
 
 # hardcoding the version for now
-ENV CONNECT_IQ_VERSION=8.1.1
+ENV CONNECT_IQ_VERSION=9.2.0
 
 # download the SDK
 COPY downloader.sh /root/downloader.sh
 RUN /root/downloader.sh $CONNECT_IQ_HOME $CONNECT_IQ_VERSION
 
 # manage device files
-# TODO find a way to download device bits from Garmin website
-COPY devices.zip /tmp/devices.zip
-RUN unzip /tmp/devices.zip -d /connectiq-devices
+# devices-*.zip are a snapshot of Garmin's device catalog, refreshed with refresh-devices.sh
+# (the catalog API requires an authenticated Garmin account, so it cannot be downloaded anonymously at build time)
+# split into multiple archives to stay under GitHub's 100MB per-file limit
+COPY devices-*.zip /tmp/
+RUN for f in /tmp/devices-*.zip; do unzip -o "$f" -d /connectiq-devices; done
 
 FROM ubuntu:jammy AS tester
 
 LABEL org.opencontainers.image.authors="matthieu.corageoud@gmail.com"
-LABEL org.opencontainers.image.version="2.4.0"
+LABEL org.opencontainers.image.version="2.5.0"
 LABEL org.opencontainers.image.description="ConnectIQ tester"
 LABEL org.opencontainers.image.source=https://github.com/matco/connectiq-tester
 

@@ -2,7 +2,9 @@
 
 ConnectIQ Tester is a Docker image that can be used to run the tests "Run No Evil" of a ConnectIQ application. The image contains the SDK, the device bits and the simulator.
 
-The image currently contains ConnectIQ SDK version `8.1.1` and the device files retrieved on `2025-05-26`.
+The image currently contains ConnectIQ SDK version `9.2.0` and the device files retrieved on `2026-08-28`.
+
+Device files are refreshed with `refresh-devices.sh`, which requires an authenticated Garmin account (see the script header for details) since Garmin's device catalog API is not publicly accessible.
 
 ## Usage
 
@@ -34,4 +36,4 @@ In this case, the application will be tested using a Venu 2 and the certificate 
 
 ## Copyright
 
-All the resources contained in the archive `devices.zip` are the property of Garmin. These resources have been fetched from the Garmin website and have been included in this repository to facilitate the creation of the Docker image.
+All the resources contained in the `devices-*.zip` archives are the property of Garmin. These resources have been fetched from the Garmin website and have been included in this repository to facilitate the creation of the Docker image. They are split across multiple archives to stay under GitHub's 100MB per-file limit.
